@@ -3,22 +3,6 @@ body {
   font-family: "Bebas Neue", sans-serif;
 }
 
-h1 {
-  top: 10%;
-  color: #168f52;
-}
-
-.text-shadow {
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
-}
-
-.shine {
-  background: -webkit-linear-gradient(#1dbb6c 0%, #168f52 20%, #168f52 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
 /* Aspect ratio based on nord lead 900/296 = 3.0405405405 296/900 = 0.32.8888888893 */
 .synth {
   background-color: #09743e;
