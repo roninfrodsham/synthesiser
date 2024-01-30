@@ -3,9 +3,13 @@ import { useMediaQuery } from "usehooks-ts";
 import { Controls } from "./components/Controls";
 import { Keys } from "./components/Keys";
 import { getAllNaturalNotes } from "./utils/notes";
-import { startSynth, stopSynth } from "./utils/synth";
+import { startSynth, stopSynth, stopNote } from "./utils/synth";
 import { NATURAL_NOTES } from "./constants";
 import "./App.css";
+
+window.addEventListener("mouseup", () => {
+  stopNote();
+});
 
 function App() {
   const [power, setPower] = useState(false);

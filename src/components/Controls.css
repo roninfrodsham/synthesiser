@@ -1,6 +1,7 @@
 h1 {
   top: 10%;
   color: #168f52;
+  user-select: none;
 }
 
 .text-shadow {
@@ -23,6 +24,7 @@ h1 {
   box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.2), 0px 0px 2px 1px rgba(0, 88, 43, 0.5);
   justify-content: space-between;
   -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+  user-select: none;
 }
 
 .power-light {

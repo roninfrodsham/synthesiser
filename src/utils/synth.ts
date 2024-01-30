@@ -1,6 +1,6 @@
 let audioContext: AudioContext | undefined;
 let allNotes: string[] = [];
-let currentNote: string;
+let currentNote: string | null = null;
 const startingFrequency = 65.41;
 const oscillators: OscillatorType = {};
 
@@ -46,17 +46,18 @@ function playNote(note: string) {
   oscillator.start();
 }
 
-function stopNote(note: string) {
-  if (audioContext === undefined) return;
-  console.log("current note", currentNote, note);
-  const oscillator = oscillators[note];
+function stopNote() {
+  if (audioContext === undefined || currentNote === null) return;
+
+  const oscillator = oscillators[currentNote];
 
   const oscillatorGain = oscillator.gain;
   oscillatorGain?.gain.setValueAtTime(oscillatorGain.gain.value, audioContext.currentTime);
-  oscillatorGain?.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 1);
+  oscillatorGain?.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 1.2);
   oscillator.stop(audioContext.currentTime + 1);
 
-  delete oscillators[note];
+  delete oscillators[currentNote];
+  currentNote = null;
 }
 
 type CustomOscillatorNode = OscillatorNode & { gain?: GainNode };

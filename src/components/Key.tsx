@@ -1,4 +1,4 @@
-import { playNote, stopNote } from "../utils/synth";
+import { playNote } from "../utils/synth";
 import "./Key.css";
 
 function Key({ color, note, styles }: KeyProps) {
@@ -8,7 +8,7 @@ function Key({ color, note, styles }: KeyProps) {
       data-note={note}
       style={styles}
       onMouseDown={() => playNote(note)}
-      onMouseUp={() => stopNote(note)}
+      // onMouseUp={() => stopNote(note)}
     />
   );
 }
