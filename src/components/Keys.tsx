@@ -1,22 +1,20 @@
+import { Key } from "./Key";
 import "./Keys.css";
 
 function Keys({ naturalNotes, sharpNotes, whiteKeyWidth }: KeysProps) {
-  const test = () => {
-    console.log("test");
-  };
-
   const keys: Array<React.ReactNode> = [];
   let blackKeyXPosition = whiteKeyWidth - whiteKeyWidth / 4;
 
   for (let i = 0; i < naturalNotes.length; i++) {
-    keys.push(<div key={`key-${i}`} className='white' style={{ width: `${whiteKeyWidth}%` }} onClick={test} />);
+    keys.push(<Key key={`key-${i}`} color='white' styles={{ width: `${whiteKeyWidth}%` }} note={naturalNotes[i]} />);
 
     if (sharpNotes.includes(naturalNotes[i][0]) && i !== naturalNotes.length - 1) {
       keys.push(
-        <div
+        <Key
           key={`key-${i}-sharp`}
-          className='black'
-          style={{ width: `${whiteKeyWidth / 2}%`, left: `${blackKeyXPosition}%` }}
+          color='black'
+          styles={{ width: `${whiteKeyWidth / 2}%`, left: `${blackKeyXPosition}%` }}
+          note={naturalNotes[i] + "#"}
         />
       );
     }
