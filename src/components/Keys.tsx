@@ -8,24 +8,25 @@ function Keys({ naturalNotes, whiteKeyWidth }: KeysProps) {
   let blackKeyXPosition = whiteKeyWidth - whiteKeyWidth / 4;
   const allKeyboardNotes: Array<string> = [];
 
-  for (let i = 0; i < naturalNotes.length; i++) {
-    allKeyboardNotes.push(naturalNotes[i]);
+  naturalNotes.forEach((note, i) => {
+    allKeyboardNotes.push(note);
 
-    keys.push(<Key key={`key-${i}`} color='white' styles={{ width: `${whiteKeyWidth}%` }} note={naturalNotes[i]} />);
+    keys.push(<Key key={`key-${i}`} color='white' styles={{ width: `${whiteKeyWidth}%` }} note={note} />);
 
-    if (NATURAL_NOTES_WITH_SHARP.includes(naturalNotes[i][0]) && i !== naturalNotes.length - 1) {
+    if (NATURAL_NOTES_WITH_SHARP.includes(note[0]) && i !== naturalNotes.length - 1) {
       keys.push(
         <Key
           key={`key-${i}-sharp`}
           color='black'
           styles={{ width: `${whiteKeyWidth / 2}%`, left: `${blackKeyXPosition}%` }}
-          note={naturalNotes[i] + "#"}
+          note={note + "#"}
         />
       );
-      allKeyboardNotes.push(naturalNotes[i] + "#");
+      allKeyboardNotes.push(note + "#");
     }
+
     blackKeyXPosition += whiteKeyWidth;
-  }
+  });
 
   setAllNotes(allKeyboardNotes);
 

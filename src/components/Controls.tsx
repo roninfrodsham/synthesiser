@@ -1,9 +1,8 @@
 import "./Controls.css";
 
-function Controls({ naturalNoteWidth, power, setPower, startSynth }: ControlsProps) {
+function Controls({ naturalNoteWidth, power, setPower }: ControlsProps) {
   const handleClick = () => {
     setPower(!power);
-    startSynth();
   };
 
   return (
@@ -36,7 +35,6 @@ type ControlsProps = {
   naturalNoteWidth: number;
   power: boolean;
   setPower: React.Dispatch<React.SetStateAction<boolean>>;
-  startSynth: () => void;
 };
 
 export { Controls };

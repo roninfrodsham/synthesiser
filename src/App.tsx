@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import { Controls } from "./components/Controls";
 import { Keys } from "./components/Keys";
 import { getAllNaturalNotes } from "./utils/notes";
-import { startSynth } from "./utils/synth";
+import { startSynth, stopSynth } from "./utils/synth";
 import { NATURAL_NOTES } from "./constants";
 import "./App.css";
 
@@ -17,10 +17,18 @@ function App() {
   const naturalNoteWidth = 100 / allNaturalNotes.length;
   const keyboardWidth = 100 - naturalNoteWidth * 2;
 
+  useEffect(() => {
+    if (power) {
+      startSynth();
+    } else {
+      stopSynth();
+    }
+  }, [power]);
+
   return (
     <div className='h-screen flex items-center justify-center p-10'>
       <div className='synth shadow-lg'>
-        <Controls naturalNoteWidth={naturalNoteWidth} power={power} setPower={setPower} startSynth={startSynth} />
+        <Controls naturalNoteWidth={naturalNoteWidth} power={power} setPower={setPower} />
         <div className='keys' style={{ left: `${naturalNoteWidth}%`, width: `${keyboardWidth}%` }}>
           <Keys naturalNotes={allNaturalNotes} whiteKeyWidth={naturalNoteWidth} />
         </div>
