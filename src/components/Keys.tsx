@@ -1,33 +1,40 @@
+import { Key } from "./Key";
+import { setAllNotes } from "../utils/synth";
+import { NATURAL_NOTES_WITH_SHARP } from "../constants";
 import "./Keys.css";
 
-function Keys({ naturalNotes, sharpNotes, whiteKeyWidth }: KeysProps) {
-  const test = () => {
-    console.log("test");
-  };
-
+function Keys({ naturalNotes, whiteKeyWidth }: KeysProps) {
   const keys: Array<React.ReactNode> = [];
   let blackKeyXPosition = whiteKeyWidth - whiteKeyWidth / 4;
+  const allKeyboardNotes: Array<string> = [];
 
-  for (let i = 0; i < naturalNotes.length; i++) {
-    keys.push(<div key={`key-${i}`} className='white' style={{ width: `${whiteKeyWidth}%` }} onClick={test} />);
+  naturalNotes.forEach((note, i) => {
+    allKeyboardNotes.push(note);
 
-    if (sharpNotes.includes(naturalNotes[i][0]) && i !== naturalNotes.length - 1) {
+    keys.push(<Key key={`key-${i}`} color='white' styles={{ width: `${whiteKeyWidth}%` }} note={note} />);
+
+    if (NATURAL_NOTES_WITH_SHARP.includes(note[0]) && i !== naturalNotes.length - 1) {
       keys.push(
-        <div
+        <Key
           key={`key-${i}-sharp`}
-          className='black'
-          style={{ width: `${whiteKeyWidth / 2}%`, left: `${blackKeyXPosition}%` }}
+          color='black'
+          styles={{ width: `${whiteKeyWidth / 2}%`, left: `${blackKeyXPosition}%` }}
+          note={note + "#"}
         />
       );
+      allKeyboardNotes.push(note + "#");
     }
+
     blackKeyXPosition += whiteKeyWidth;
-  }
+  });
+
+  setAllNotes(allKeyboardNotes);
+
   return keys;
 }
 
 type KeysProps = {
   naturalNotes: Array<string>;
-  sharpNotes: Array<string>;
   whiteKeyWidth: number;
 };
 
