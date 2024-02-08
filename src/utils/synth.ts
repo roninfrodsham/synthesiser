@@ -2,7 +2,7 @@ let audioContext: AudioContext | undefined;
 let allNotes: string[] = [];
 let currentNote: string | null = null;
 const startingFrequency = 65.41;
-const oscillators: OscillatorType = {};
+let oscillators: OscillatorType = {};
 
 function setAllNotes(allKeyboardNotes: string[]) {
   allNotes = allKeyboardNotes;
@@ -13,14 +13,22 @@ function startSynth() {
 }
 
 function stopSynth() {
-  if (audioContext === undefined) return;
-
-  audioContext.close();
-  audioContext = undefined;
+  if (audioContext) {
+    audioContext.close().then(() => {
+      audioContext = null;
+      // Clean up oscillators
+      for (const note in oscillators) {
+        if (oscillators.hasOwn(note)) {
+          oscillator[note].stop();
+        }
+      }
+      oscillators = {};
+    });
+  }
 }
 
 function playNote(note: string) {
-  if (audioContext === undefined) return;
+  if (!audioContext) return;
 
   currentNote = note;
   const noteIndex = allNotes.indexOf(note);
@@ -47,7 +55,7 @@ function playNote(note: string) {
 }
 
 function stopNote() {
-  if (audioContext === undefined || currentNote === null) return;
+  if (!audioContext || !currentNote) return;
 
   const oscillator = oscillators[currentNote];
 

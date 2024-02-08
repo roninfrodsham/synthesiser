@@ -1,9 +1,9 @@
 function getAllNaturalNotes(naturalNotes: Array<string>, [firstKey, lastKey]: Array<string>) {
-  const firstNote = firstKey[0];
-  const firstOctave = parseInt(firstKey[1]);
+  const firstNote = firstKey.slice(0, 1);
+  const firstOctave = parseInt(firstKey.slice(1));
   const firstNotePosition = naturalNotes.indexOf(firstNote);
-  const lastNote = lastKey[0];
-  const lastOctave = parseInt(lastKey[1]);
+  const lastNote = lastKey.slice(0, 1);
+  const lastOctave = parseInt(lastKey.slice(1));
   const lastNotePosition = naturalNotes.indexOf(lastNote);
 
   const allNaturalNotes: Array<string> = [];
