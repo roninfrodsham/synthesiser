@@ -2,15 +2,7 @@ import { playNote } from "../utils/synth";
 import "./Key.css";
 
 function Key({ color, note, styles }: KeyProps) {
-  return (
-    <div
-      className={color}
-      data-note={note}
-      style={styles}
-      onMouseDown={() => playNote(note)}
-      // onMouseUp={() => stopNote(note)}
-    />
-  );
+  return <div className={color} data-note={note} style={styles} onMouseDown={() => playNote(note)} />;
 }
 
 type KeyProps = {

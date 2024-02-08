@@ -9,19 +9,12 @@ function getAllNaturalNotes(naturalNotes: Array<string>, [firstKey, lastKey]: Ar
   const allNaturalNotes: Array<string> = [];
 
   for (let octave = firstOctave; octave <= lastOctave; octave++) {
-    if (octave === firstOctave) {
-      naturalNotes.slice(firstNotePosition).forEach((note) => {
-        allNaturalNotes.push(`${note}${octave}`);
-      });
-    } else if (octave === lastOctave) {
-      naturalNotes.slice(0, lastNotePosition + 1).forEach((note) => {
-        allNaturalNotes.push(`${note}${octave}`);
-      });
-    } else {
-      naturalNotes.forEach((note) => {
-        allNaturalNotes.push(`${note}${octave}`);
-      });
-    }
+    const start = octave === firstOctave ? firstNotePosition : 0;
+    const end = octave === lastOctave ? lastNotePosition + 1 : naturalNotes.length;
+
+    naturalNotes.slice(start, end).forEach((note) => {
+      allNaturalNotes.push(`${note}${octave}`);
+    });
   }
 
   return allNaturalNotes;
