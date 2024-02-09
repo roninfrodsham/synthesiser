@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import App from "../App";
+import { App } from "../App";
 
 beforeAll(() => {
   // Mock window.matchMedia
@@ -50,7 +50,7 @@ describe("App component", () => {
 
   it("changes power state when setPower is called", () => {
     render(<App />);
-    screen.debug();
+
     const powerButton = screen.getByText("Power");
 
     const powerLight = powerButton.querySelector(".power-light");
