@@ -3,17 +3,16 @@ import { setAllNotes } from "../utils/synth";
 import { NATURAL_NOTES_WITH_SHARP } from "../constants";
 
 function Keys({ naturalNotes, whiteKeyWidth }: KeysProps) {
-  const keys: Array<React.ReactNode> = [];
-  let blackKeyXPosition = whiteKeyWidth - whiteKeyWidth / 4;
   const allKeyboardNotes: Array<string> = [];
+  let blackKeyXPosition = whiteKeyWidth - whiteKeyWidth / 4;
 
-  naturalNotes.forEach((note, i) => {
+  const keys = naturalNotes.map((note, i) => {
     allKeyboardNotes.push(note);
 
-    keys.push(<Key key={`key-${i}`} color='white' styles={{ width: `${whiteKeyWidth}%` }} note={note} />);
+    const keyComponents = [<Key key={`key-${i}`} color='white' styles={{ width: `${whiteKeyWidth}%` }} note={note} />];
 
     if (NATURAL_NOTES_WITH_SHARP.includes(note[0]) && i !== naturalNotes.length - 1) {
-      keys.push(
+      keyComponents.push(
         <Key
           key={`key-${i}-sharp`}
           color='black'
@@ -25,6 +24,8 @@ function Keys({ naturalNotes, whiteKeyWidth }: KeysProps) {
     }
 
     blackKeyXPosition += whiteKeyWidth;
+
+    return keyComponents;
   });
 
   setAllNotes(allKeyboardNotes);
