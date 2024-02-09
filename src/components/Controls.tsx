@@ -1,5 +1,11 @@
 import "./Controls.css";
 
+type ControlsProps = {
+  naturalNoteWidth: number;
+  power: boolean;
+  setPower: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
 function Controls({ naturalNoteWidth, power, setPower }: ControlsProps) {
   const handleClick = () => {
     setPower(!power);
@@ -30,11 +36,5 @@ function Controls({ naturalNoteWidth, power, setPower }: ControlsProps) {
     </>
   );
 }
-
-type ControlsProps = {
-  naturalNoteWidth: number;
-  power: boolean;
-  setPower: React.Dispatch<React.SetStateAction<boolean>>;
-};
 
 export { Controls };
