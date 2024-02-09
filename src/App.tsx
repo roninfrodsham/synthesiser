@@ -8,24 +8,32 @@ import { MOBILE_MAX_WIDTH, NATURAL_NOTES } from "./constants";
 import "./App.css";
 
 function App() {
+  // State for power switch
   const [power, setPower] = useState(false);
+  // Check if the device is mobile
   const isMobile = useMediaQuery(`(max-width: ${MOBILE_MAX_WIDTH}px)`);
 
+  // Determine the range of notes based on the device type
   const range = useMemo(() => (isMobile ? ["C4", "C6"] : ["C3", "C7"]), [isMobile]);
 
+  // Get all natural notes within the determined range
   const allNaturalNotes = useMemo(() => getAllNaturalNotes(NATURAL_NOTES, range), [range]);
 
+  // Calculate the width of each natural note
   const naturalNoteWidth = 100 / allNaturalNotes.length;
 
+  // Add an event listener to stop the note when the mouse is released
   useEffect(() => {
     const handleMouseUp = () => stopNote();
     window.addEventListener("mouseup", handleMouseUp);
 
+    // Clean up the event listener when the component is unmounted
     return () => {
       window.removeEventListener("mouseup", handleMouseUp);
     };
   }, []);
 
+  // Start or stop the synth when the power state changes
   useEffect(() => {
     if (power) {
       startSynth();
@@ -34,6 +42,7 @@ function App() {
     }
   }, [power]);
 
+  // Render the Controls and Keyboard components
   return (
     <div className='h-screen flex items-center justify-center p-10'>
       <div className='synth relative w-full shadow-lg'>
