@@ -35,12 +35,6 @@ function playNote(note: string) {
 
   const oscillator: CustomOscillatorNode = audioContext.createOscillator();
   oscillator.type = "sine";
-
-  // To work out the frequency I used this site:
-  // http://techlib.com/reference/musical_note_frequencies.htm
-  // I've chosen the lowest C note as the starting point
-  // and then multiplied it by 2^(n/12) where n is the number
-  // of keys including semitones away from the starting note.
   oscillator.frequency.value = startingFrequency * Math.pow(2, noteIndex / 12);
 
   const oscillatorGain = audioContext.createGain();
