@@ -1,7 +1,6 @@
 import { Key } from "./Key";
 import { setAllNotes } from "../utils/synth";
 import { NATURAL_NOTES_WITH_SHARP } from "../constants";
-import "./Keys.css";
 
 function Keys({ naturalNotes, whiteKeyWidth }: KeysProps) {
   const keys: Array<React.ReactNode> = [];

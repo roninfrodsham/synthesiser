@@ -23,7 +23,7 @@ beforeAll(() => {
     // add any other methods you need to mock here
   }));
 
-  // Restore window.matchMedia after all tests
+  // Restore after all tests
   afterAll(() => {
     window.matchMedia = originalMatchMedia;
     window.AudioContext = originalAudioContext;

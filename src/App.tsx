@@ -37,9 +37,9 @@ function App() {
 
   return (
     <div className='h-screen flex items-center justify-center p-10'>
-      <div className='synth shadow-lg'>
+      <div className='synth relative w-full shadow-lg'>
         <Controls naturalNoteWidth={naturalNoteWidth} power={power} setPower={setPower} />
-        <div className='keys' style={{ left: `${naturalNoteWidth}%`, width: `${keyboardWidth}%` }}>
+        <div className='keys absolute flex' style={{ left: `${naturalNoteWidth}%`, width: `${keyboardWidth}%` }}>
           <Keys naturalNotes={allNaturalNotes} whiteKeyWidth={naturalNoteWidth} />
         </div>
       </div>

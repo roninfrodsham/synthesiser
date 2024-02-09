@@ -3,15 +3,19 @@ body {
   font-family: "Bebas Neue", sans-serif;
 }
 
-/* Aspect ratio based on nord lead 900/296 = 3.0405405405 296/900 = 0.32.8888888893 */
+/* Aspect ratio for large screens based on a nord lead 900/296 = 3.0405405405 296/900 = 0.32.8888888893. Set much higher for mobile to give a bigger keyboard */
 .synth {
   background-color: #09743e;
-  position: relative;
-  width: 100%;
   padding-top: 70%;
   border-radius: 0.5rem;
 
   @media screen and (min-width: 1025px) {
     padding-top: 32.8888888893%;
   }
+}
+
+.keys {
+  top: 40%;
+  height: 60%;
+  background-color: #00582b;
 }
