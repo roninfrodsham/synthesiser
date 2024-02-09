@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import { Controls } from "./components/Controls";
-import { Keys } from "./components/Keys";
+import { Keyboard } from "./components/Keyboard";
 import { getAllNaturalNotes } from "./utils/notes";
 import { startSynth, stopSynth, stopNote } from "./utils/synth";
 import { MOBILE_MAX_WIDTH, NATURAL_NOTES } from "./constants";
@@ -16,7 +16,6 @@ function App() {
   const allNaturalNotes = useMemo(() => getAllNaturalNotes(NATURAL_NOTES, range), [range]);
 
   const naturalNoteWidth = 100 / allNaturalNotes.length;
-  const keyboardWidth = 100 - naturalNoteWidth * 2;
 
   useEffect(() => {
     const handleMouseUp = () => stopNote();
@@ -39,12 +38,10 @@ function App() {
     <div className='h-screen flex items-center justify-center p-10'>
       <div className='synth relative w-full shadow-lg'>
         <Controls naturalNoteWidth={naturalNoteWidth} power={power} setPower={setPower} />
-        <div className='keys absolute flex' style={{ left: `${naturalNoteWidth}%`, width: `${keyboardWidth}%` }}>
-          <Keys naturalNotes={allNaturalNotes} whiteKeyWidth={naturalNoteWidth} />
-        </div>
+        <Keyboard naturalNotes={allNaturalNotes} whiteKeyWidth={naturalNoteWidth} naturalNoteWidth={naturalNoteWidth} />
       </div>
     </div>
   );
 }
 
-export default App;
+export { App };
