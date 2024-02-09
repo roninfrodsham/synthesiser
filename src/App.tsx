@@ -1,25 +1,31 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import { Controls } from "./components/Controls";
 import { Keys } from "./components/Keys";
 import { getAllNaturalNotes } from "./utils/notes";
 import { startSynth, stopSynth, stopNote } from "./utils/synth";
-import { NATURAL_NOTES } from "./constants";
+import { MOBILE_MAX_WIDTH, NATURAL_NOTES } from "./constants";
 import "./App.css";
-
-window.addEventListener("mouseup", () => {
-  stopNote();
-});
 
 function App() {
   const [power, setPower] = useState(false);
-  const isMobile = useMediaQuery("(max-width: 1024px)");
+  const isMobile = useMediaQuery(`(max-width: ${MOBILE_MAX_WIDTH}px)`);
 
-  const range = isMobile ? ["C4", "C6"] : ["C3", "C7"];
+  const range = useMemo(() => (isMobile ? ["C4", "C6"] : ["C3", "C7"]), [isMobile]);
 
-  const allNaturalNotes = getAllNaturalNotes(NATURAL_NOTES, range);
+  const allNaturalNotes = useMemo(() => getAllNaturalNotes(NATURAL_NOTES, range), [range]);
+
   const naturalNoteWidth = 100 / allNaturalNotes.length;
   const keyboardWidth = 100 - naturalNoteWidth * 2;
+
+  useEffect(() => {
+    const handleMouseUp = () => stopNote();
+    window.addEventListener("mouseup", handleMouseUp);
+
+    return () => {
+      window.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, []);
 
   useEffect(() => {
     if (power) {
