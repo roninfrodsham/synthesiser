@@ -1,10 +1,17 @@
 # React Synthesiser
 
-To run project:
+To run project in development mode:
 
 ```
 npm i
 npm run dev
+```
+
+To build and run:
+
+```
+npm run build
+npm run preview
 ```
 
 ### Frequency of Notes
