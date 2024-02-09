@@ -1,14 +1,27 @@
+import { useEffect, useMemo } from "react";
 import { Key } from "./Key";
 import { setAllNotes } from "../utils/synth";
 import { NATURAL_NOTES_WITH_SHARP } from "../constants";
 
 function Keys({ naturalNotes, whiteKeyWidth }: KeysProps) {
-  const allKeyboardNotes: Array<string> = [];
   let blackKeyXPosition = whiteKeyWidth - whiteKeyWidth / 4;
 
-  const keys = naturalNotes.map((note, i) => {
-    allKeyboardNotes.push(note);
+  const allKeyboardNotes = useMemo(() => {
+    const notes: string[] = [];
+    naturalNotes.forEach((note, i) => {
+      notes.push(note);
+      if (NATURAL_NOTES_WITH_SHARP.includes(note[0]) && i !== naturalNotes.length - 1) {
+        notes.push(note + "#");
+      }
+    });
+    return notes;
+  }, [naturalNotes]);
 
+  useEffect(() => {
+    setAllNotes(allKeyboardNotes);
+  }, [allKeyboardNotes]);
+
+  const keys = naturalNotes.map((note, i) => {
     const keyComponents = [<Key key={`key-${i}`} color='white' styles={{ width: `${whiteKeyWidth}%` }} note={note} />];
 
     if (NATURAL_NOTES_WITH_SHARP.includes(note[0]) && i !== naturalNotes.length - 1) {
@@ -27,8 +40,6 @@ function Keys({ naturalNotes, whiteKeyWidth }: KeysProps) {
 
     return keyComponents;
   });
-
-  setAllNotes(allKeyboardNotes);
 
   return keys;
 }
