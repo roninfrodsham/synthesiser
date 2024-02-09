@@ -1,5 +1,7 @@
 # React Synthesiser
 
+`Dont forget to turn the power on!!!`
+
 To run project in development mode:
 
 ```
