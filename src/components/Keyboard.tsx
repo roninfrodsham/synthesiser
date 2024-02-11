@@ -38,13 +38,15 @@ function Keyboard({ naturalNotes, whiteKeyWidth, naturalNoteWidth }: KeysProps) 
   // Map over the naturalNotes to create the Key components
   const keys = naturalNotes.map((note, i) => {
     // Create a Key component for the natural note
-    const keyComponents = [<Key key={`key-${i}`} color='white' styles={{ width: `${whiteKeyWidth}%` }} note={note} />];
+    const keyComponents = [
+      <Key key={`key-${note}`} color='white' styles={{ width: `${whiteKeyWidth}%` }} note={note} />,
+    ];
 
     // If the note can have a sharp version and it's not the last note, add a Key component for the sharp note
     if (NATURAL_NOTES_WITH_SHARP.includes(note[0]) && i !== naturalNotes.length - 1) {
       keyComponents.push(
         <Key
-          key={`key-${i}-sharp`}
+          key={`key-${note}-sharp`}
           color='black'
           styles={{ width: `${whiteKeyWidth / 2}%`, left: `${blackKeyXPosition}%` }}
           note={note + "#"}
