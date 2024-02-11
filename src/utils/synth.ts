@@ -1,4 +1,4 @@
-let audioContext: AudioContext | undefined;
+let audioContext: AudioContext | undefined | null;
 let allNotes: string[] = [];
 let currentNote: string | null = null;
 const startingFrequency = 65.41;
@@ -18,8 +18,8 @@ function stopSynth() {
       audioContext = null;
       // Clean up oscillators
       for (const note in oscillators) {
-        if (oscillators.hasOwn(note)) {
-          oscillator[note].stop();
+        if (Object.prototype.hasOwnProperty.call(oscillators, note)) {
+          oscillators[note].stop();
         }
       }
       oscillators = {};

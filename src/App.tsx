@@ -14,7 +14,7 @@ function App() {
   const isMobile = useMediaQuery(`(max-width: ${MOBILE_MAX_WIDTH}px)`);
 
   // Determine the range of notes based on the device type
-  const range = useMemo(() => (isMobile ? ["C4", "C6"] : ["C3", "C7"]), [isMobile]);
+  const range: [string, string] = useMemo(() => (isMobile ? ["C4", "C6"] : ["C3", "C7"]), [isMobile]);
 
   // Get all natural notes within the determined range
   const allNaturalNotes = useMemo(() => getAllNaturalNotes(NATURAL_NOTES, range), [range]);

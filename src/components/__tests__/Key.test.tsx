@@ -23,7 +23,7 @@ describe("Key", () => {
     expect(keyElement).toHaveStyle(`left: ${styles.left}`);
 
     // Simulate a mouse down event and check if playNote is called
-    fireEvent.mouseDown(keyElement);
+    fireEvent.mouseDown(keyElement as Element | Node | Window | Document);
     expect(playNote).toHaveBeenCalledWith(note);
   });
 });
