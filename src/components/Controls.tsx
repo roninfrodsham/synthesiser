@@ -26,7 +26,7 @@ function Controls({ naturalNoteWidth, power, setPower }: ControlsProps) {
         R 106
       </p>
       <button
-        className='power absolute flex items-center gap-x-4 rounded-md px-5 py-1 text-xl cursor-pointer'
+        className='power absolute flex items-center gap-x-3 rounded-md px-3 py-1 text-sm cursor-pointer md:gap-x-4 md:px-5 md:text-xl'
         style={{ right: `${naturalNoteWidth}%` }}
         onClick={handleClick}
       >

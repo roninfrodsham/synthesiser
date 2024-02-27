@@ -1,7 +1,8 @@
+import { STARTING_FREQUENCY } from "../constants";
+
 let audioContext: AudioContext | undefined | null;
 let allNotes: string[] = [];
 let currentNote: string | null = null;
-const startingFrequency = 65.41;
 let oscillators: OscillatorType = {};
 
 function setAllNotes(allKeyboardNotes: string[]) {
@@ -33,16 +34,19 @@ function playNote(note: string) {
   currentNote = note;
   const noteIndex = allNotes.indexOf(note);
 
+  // Creating an oscillator for the note
   const oscillator: CustomOscillatorNode = audioContext.createOscillator();
   oscillator.type = "sine";
-  oscillator.frequency.value = startingFrequency * Math.pow(2, noteIndex / 12);
+  oscillator.frequency.value = STARTING_FREQUENCY * Math.pow(2, noteIndex / 12);
 
+  // Creating a gain for the oscillator
   const oscillatorGain = audioContext.createGain();
   oscillatorGain.gain.value = 0.33;
   oscillator.gain = oscillatorGain;
   oscillator.connect(oscillatorGain);
   oscillatorGain.connect(audioContext.destination);
 
+  // Adding the oscillator to the oscillators object
   oscillators[note] = oscillator;
 
   oscillator.start();
@@ -53,15 +57,18 @@ function stopNote() {
 
   const oscillator = oscillators[currentNote];
 
+  // Gradually reducing the gain to zero
   const oscillatorGain = oscillator.gain;
   oscillatorGain?.gain.setValueAtTime(oscillatorGain.gain.value, audioContext.currentTime);
   oscillatorGain?.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 1.2);
   oscillator.stop(audioContext.currentTime + 1);
 
+  // Removing the oscillator from the oscillators object
   delete oscillators[currentNote];
   currentNote = null;
 }
 
+// Defining a type for custom oscillator node extending the OscillatorNode for the gain property
 type CustomOscillatorNode = OscillatorNode & { gain?: GainNode };
 
 type OscillatorType = {

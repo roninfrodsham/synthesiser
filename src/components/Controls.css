@@ -27,10 +27,16 @@
 }
 
 .power-light {
-  width: 6px;
-  height: 6px;
+  margin-top: -2px;
+  width: 4px;
+  height: 4px;
   background-color: rgb(255, 0, 0);
   box-shadow: inset 0px 1px 0px 0px rgba(255, 255, 255, 0.6), 0px 0px 3px 2px rgba(255, 0, 0, 0.8);
+
+  @media screen and (min-width: 768px) {
+    width: 6px;
+    height: 6px;
+  }
 }
 
 .power-light-on {
